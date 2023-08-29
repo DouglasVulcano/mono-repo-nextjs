@@ -1,7 +1,21 @@
 {
-  "devDependencies": {
-    "@types/node": "^20.5.7",
-    "@types/react": "^18.2.21",
-    "typescript": "^5.2.2"
-  }
+    "devDependencies": {
+        "@types/node": "^20.5.7",
+        "@types/react": "^18.2.21",
+        "typescript": "^5.2.2"
+    },
+    "private": true,
+    "workspaces": {
+        "packages": [
+            "packages/*",
+            "projects/*",
+            "setup/*"
+        ]
+    },
+    "scripts": {
+        "web-public": "yarn workspace @alura/web-public",
+        "dev:web-public": "yarn web-public dev",
+        "build:web-public": "yarn web-public build",
+        "start:web-public": "yarn web-public start"
+    }
 }
