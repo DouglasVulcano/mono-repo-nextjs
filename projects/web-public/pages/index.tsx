@@ -1,9 +1,11 @@
-import { sum } from "@alura/utils/math/sum";
+import { calculateSum } from "@alura/utils/math/sum";
+import { Text } from "@alura/design-system/components/Text";
 
 export default function HomeScreen() {
     return (
         <div>
-            <h1>Hello World! {sum(1, 2)}</h1>
+            <Text tag="h1">Olá mundo!</Text>
+            <p>Soma de 1 e 2 = {calculateSum(1, 2)}</p>
         </div>
     );
 }

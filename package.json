@@ -13,9 +13,10 @@
         ]
     },
     "scripts": {
-        "web-public": "yarn workspace @alura/web-public",
         "dev:web-public": "yarn web-public dev",
         "build:web-public": "yarn web-public build",
-        "start:web-public": "yarn web-public start"
+        "start:web-public": "yarn web-public start",
+        "web-public": "yarn workspace @alura/web-public",
+        "design-system": "yarn workspace @alura/design-system"
     }
 }
