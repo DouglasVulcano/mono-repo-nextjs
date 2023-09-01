@@ -12,6 +12,9 @@
             "setup/*"
         ]
     },
+    "dependencies": {
+        "@types/styled-components": "^5.1.18"
+    },
     "scripts": {
         "dev:web-public": "yarn web-public dev",
         "build:web-public": "yarn web-public build",
