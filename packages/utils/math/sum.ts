@@ -8,7 +8,7 @@
  * @example
  * const result = calculateSum(3, 5); // Returns 8
  */
-export const calculateSum = (a: number, b: number): number => {
+export const calculateSum = (a: number, b: number) => {
     if (typeof a !== "number" || typeof b !== "number") {
         throw new TypeError("Both parameters must be numbers.");
     }

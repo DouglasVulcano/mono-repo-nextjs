@@ -13,13 +13,16 @@
         ]
     },
     "dependencies": {
-        "@types/styled-components": "^5.1.18"
+        "@types/styled-components": "^5.1.18",
+        "@types/jest": "^29.5.4"
     },
     "scripts": {
         "dev:web-public": "yarn web-public dev",
         "build:web-public": "yarn web-public build",
         "start:web-public": "yarn web-public start",
         "web-public": "yarn workspace @alura/web-public",
-        "design-system": "yarn workspace @alura/design-system"
+        "design-system": "yarn workspace @alura/design-system",      
+        "utils": "yarn workspace @alura/utils",
+        "test:utils": "yarn utils test"
     }
 }
