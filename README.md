@@ -167,11 +167,11 @@ Implementado o Jest para testes na aplicação, de forma compartilhada.
 Em seguida, você deve adicionar os tipos do Jest ao seu package.json raiz do projeto como dependência:
 ```
     "@types/jest": "^29.5.4"
-
 ```
 Isso garantirá que o TypeScript reconheça as tipagens do Jest.
 
 2. Configurar o pacote 'jest-commons'
+
 Agora, é hora de configurar o pacote 'jest-commons' em /setup/jest-commons.
 
 Dentro do package.json do pacote 'jest-commons', adicione as seguintes dependências de desenvolvimento:
@@ -203,6 +203,7 @@ Dentro do package.json do pacote 'jest-commons', adicione as seguintes dependên
 Certifique-se de que estas dependências estão instaladas no pacote 'jest-commons'.
 
 3. Criar arquivos de configuração
+
 Agora, crie dois novos arquivos dentro do pacote 'jest-commons': 'base.ts' e '.babelrc', com as seguintes configurações:
 
 - base.ts
@@ -222,7 +223,6 @@ const config: Config.InitialOptions = {
 };
 
 export default config;
-
 ```
 
 - .babelrc
@@ -244,6 +244,7 @@ export default config;
 Estas configurações vão garantir que o Jest seja configurado corretamente e que o Babel seja usado para transpilar seu código durante os testes.
 
 4. Adicionar comandos no package.json raiz
+
 Para executar os testes em módulos específicos, adicione os seguintes comandos no package.json raiz do projeto:
 
 ```
@@ -255,6 +256,7 @@ Para executar os testes em módulos específicos, adicione os seguintes comandos
 ```
 
 5. Configurar jest.config.ts
+
 Por último, para que o Jest use a configuração que definimos, crie um arquivo jest.config.ts com o seguinte conteúdo:
 
 ```
@@ -264,6 +266,79 @@ export { default } from "@alura/test-commons/base";
 Para testar o módulo de utils, basta rodar o comando configurado:
 ```
 yarn test:utils
+```
+
+# 5 Implementando testes para os componentes do pacotes design-system.
+
+Como setup inicial, devemos primeiro adicionar o arquivo de setup jest (jes.config.ts) para o pacote e adicionar como devDependencies o pacote '@alura/test-commons'.
+```
+    "devDependencies": {
+        ...
+        "@alura/test-commons": "*"
+    }
+```
+
+### Biblioteca para realizar testes e componentes React: Testing Library
+- [Testing Library](https://testing-library.com/)
+- [Testing Library Setup React](https://testing-library.com/docs/react-testing-library/setup/)
+
+Para configurar o pacote '@alura/test-commons' com o Testing Library, será necessário criar o arquivo 'react-testing-library.ts', com o setup disponível na bilioteca:
+
+```
+import {render, queries, within} from '@testing-library/react'
+import * as customQueries from './custom-queries'
+
+const allQueries = {
+  ...queries,
+  ...customQueries,
+}
+
+const customScreen = within(document.body, allQueries)
+const customWithin = element => within(element, allQueries)
+const customRender = (ui, options) =>
+  render(ui, {queries: allQueries, ...options})
+
+// re-export everything
+export * from '@testing-library/react'
+
+// override render method
+export {customScreen as screen, customWithin as within, customRender as render}
+```
+
+Adicionar ao package.json de 'test-commons' a dependência:
+```
+ "devDependencies": {
+        ...
+        "@testing-library/react": "14.0.0"
+    }
+```
+Com isso, podemos criar um arquivo 'index.test.tsx' no pacote design-system, importando o método customRender de 'react-testing-library'. Com isso começaremos a utilizar um render customizado, para realizar o teste dos componentes. (Obs: o arquivo index.test.tsx, deve ser criado na pasta do componente)
+
+```
+// Configuração feita no arquivo:
+import { Text } from "./index";
+import { render } from "@alura/test-commons/react-testing-library";
+
+describe("<Text />", () => {
+    it("renders h1 tag", () => {
+        const { container } = render(<Text tag="h1">Sample Text</Text>, null);
+        expect(container).toMatchSnapshot();
+    });
+});
+```
+Obs: Foi necessário adicionar o 'est-environment-jsdom' ao pacote @alura/test-commons, o processo seguido no curso não estava atualizado, atualmente é necessário adicionar separadamente.
+```
+yarn add --dev jest-environment-jsdom
+```
+
+Por fim, basta configurar e execução do comando de teste para o pacote de design-system:
+
+```
+// package.json raiz
+    "scripts": {
+        ...
+        "test:design-system": "yarn design-system test"
+    }
 ```
 
 

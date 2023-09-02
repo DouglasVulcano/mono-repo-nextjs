@@ -2,7 +2,7 @@ import type { Config } from '@jest/types';
 import path from 'path';
 
 const config: Config.InitialOptions = {
-    // testEnvironment: 'jsdom',
+    testEnvironment: 'jsdom',
     verbose: true,
     transform: {
         '\\.[jt]sx?$': ['babel-jest', {

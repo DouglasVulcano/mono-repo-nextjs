@@ -3,10 +3,14 @@
     "version": "1.0.0",
     "main": "index.js",
     "license": "MIT",
+    "scripts": {
+        "test": "jest"
+    },
     "dependencies": {
         "styled-components": "^6.0.7"
     },
     "devDependencies": {
-        "@alura/tsconfig-commons": "*"
+        "@alura/tsconfig-commons": "*",
+        "@alura/test-commons": "*"
     }
 }
